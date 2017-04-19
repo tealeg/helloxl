@@ -1,0 +1,71 @@
+* Baseline:
+
+** Go project
+
+*** I won't explain this.
+
+*** Surfice to say, it exists, it does stuff, and it has a directory.
+
+*** Change into the directory:
+
+#+BEGIN_SRC shell
+cd ~/go/src/github.com/tealeg/helloxl
+#+END_SRC
+
+** Setup React in a project
+
+*** Install npm
+
+**** Linux
+***** Ubuntu
+#+BEGIN_SRC shell
+sudo apt install npm
+#+END_SRC
+***** Fedora
+#+BEGIN_SRC shell
+sudo dnf install npm
+#+END_SRC
+***** RedHat / CentOS
+#+BEGIN_SRC shell
+sudo yum install npm
+#+END_SRC
+***** Arch 
+#+BEGIN_SRC shell
+sudo pacman -S npm
+#+END_SRC
+**** Mac OS X
+***** First install homebrew
+#+BEGIN_SRC shell
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
+brew doctor # just to check
+#+END_SRC
+
+Add this to your =~/.bash_profile= file
+#+BEGIN_SRC shell
+export PATH="/usr/local/bin:$PATH"
+#+END_SRC
+
+***** Now you can install Node (and npm along with it)
+#+BEGIN_SRC shell
+brew install node
+#+END_SRC
+
+**** Windows
+Follow the instructions [[http://dilbert.com/strip/1995-06-24][here]].  
+
+*** Install webpack (project local)
+In the root directory of your project:
+#+BEGIN_SRC shell
+npm i webpack -S
+#+END_SRC
+
+*** Setup webpack.config.js
+In the root directory of your project, create a file called webpack.config.js:
+#+INCLUDE: "./webpack.config.js" src js
+
+*** Create the directory structures for our JSX
+#+BEGIN_SRC shell
+    mkdir ./jsx
+    mkdir ./views/js
+#+END_SRC
