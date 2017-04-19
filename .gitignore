@@ -28,3 +28,6 @@ node_modules
 
 # the generated go binary
 helloxl
+
+# the generated js
+public/js/*.js
