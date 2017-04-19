@@ -74,7 +74,7 @@ In the root directory of your project, create a file called =webpack.config.js=:
 *** Install babel
 
 #+BEGIN_SRC shell
-npm i babel-loader babel-preset-es2015 babel-preset-react -S
+npm i babel-core babel-loader babel-preset-es2015 babel-preset-react -S
 #+END_SRC
 
 *** Setup .babelrc
