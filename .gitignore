@@ -31,3 +31,6 @@ helloxl
 
 # the generated js
 public/js/*.js
+
+# Ignore the RH/CentOS node setup script, if present
+setup_7.x
