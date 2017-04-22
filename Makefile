@@ -1,7 +1,6 @@
 APT := $(shell command -v apt 2> /dev/null)
 YUM := $(shell command -v yum 2> /dev/null)
-
-.PHONY: npm apt yum
+NPM += $(shell command -v npm 2> /dev/null)
 
 all: webpack golang
 
@@ -21,7 +20,12 @@ endif
 
 npm: apt yum
 
-node_modules: npm
+node_modules:
+# By defining this conditionally, rather than making a 'npm' a
+# precondition we can stop node_modules and npm running for every make.
+ifndef NPM
+	make npm
+endif
 	npm i webpack babel-core babel-loader babel-preset-es2015 babel-preset-react react react-dom -S
 
 webpack: node_modules
