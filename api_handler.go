@@ -6,11 +6,12 @@ import (
 	"io/ioutil"
 
 	"github.com/pilu/traffic"
+	"github.com/tealeg/xlsx"
 )
 
 type ExcelData struct {
 	DocumentName string
-	Data []byte
+	Sheets [][][]string
 }
 
 func excelResponse(w traffic.ResponseWriter, r *traffic.Request) {
@@ -24,12 +25,17 @@ func excelResponse(w traffic.ResponseWriter, r *traffic.Request) {
         }
 	fmt.Print("Filename: ")
 	fmt.Println(handler.Filename)
-        // err = ioutil.WriteFile(handler.Filename, data, 0777) 
-        // if err != nil { 
-        //         fmt.Println(err) 
-        // } 
+
+	xlFile, err := xlsx.OpenBinary(data)
+	if err != nil {
+		fmt.Println(err)
+	}
 	
- 	excelData := ExcelData{DocumentName: "test", Data: data}
+ 	excelData := ExcelData{DocumentName: handler.Filename}
+	excelData.Sheets, err = xlFile.ToSlice()
+	if err != nil {
+		fmt.Println(err)
+	}
 	enc := json.NewEncoder(w)
 	enc.Encode(excelData)
 }
