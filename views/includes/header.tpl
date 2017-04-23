@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Traffic example</title>
+  <title>HelloXL, a small ReactJS demo</title>
+  <link rel="stylesheet" type="text/css" href="/css/app.css" />
 </head>
 <body>
-  <h1>Header (views/includes/header.tpl)</h1>
+  <h1>HelloXL, a small ReactJS demo</h1>
 
