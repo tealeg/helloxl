@@ -36,6 +36,7 @@ func excelResponse(w traffic.ResponseWriter, r *traffic.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println(excelData)
 	enc := json.NewEncoder(w)
 	enc.Encode(excelData)
 }
