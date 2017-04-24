@@ -1,0 +1,19 @@
+.sheet {
+    display: table;
+    background-color: #cecece;
+    padding: 5px;
+    border: 1px solid #555555;
+}
+
+.row {
+    display: table-row;
+    background-color: #ceceff;
+    padding: 2px;
+}
+
+.col {
+    display: table-cell;
+    background-color: #ffffff;
+    border: 1px solid #555555;
+    padding: 2px;
+}

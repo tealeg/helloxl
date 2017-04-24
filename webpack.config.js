@@ -20,6 +20,10 @@ var config = {
                 loader: 'babel-loader'
             }
         ]
+    },
+    devtool: 'source-map',
+    resolve: {
+	extensions: [".js", ".jsx"]
     }
 };
 
