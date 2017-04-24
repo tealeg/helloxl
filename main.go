@@ -7,8 +7,10 @@ import (
 var router *traffic.Router
 
 func init() {
-  router = traffic.New()
-  router.Get("/", RootHandler)
+	traffic.SetHost("0.0.0.0")
+	traffic.SetPort(3000)
+	router = traffic.New()
+	router.Get("/", RootHandler)
 }
 
 func main() {
