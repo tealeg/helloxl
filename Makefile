@@ -32,3 +32,9 @@ golang:
 
 golang-test:
 	go test -v 
+
+docker-build:
+	sudo docker build -t helloxl .
+
+docker-run:
+	sudo docker run --publish 8080:3000 --name helloxl --rm helloxl
