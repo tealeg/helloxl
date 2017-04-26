@@ -1,5 +1,6 @@
 APT := $(shell command -v apt 2> /dev/null)
 YUM := $(shell command -v yum 2> /dev/null)
+PACMAN := $(shell command -v pacman 2> /dev/null)
 NPM += $(shell command -v npm 2> /dev/null)
 
 all: webpack golang
@@ -18,7 +19,12 @@ ifdef APT
 	sudo apt install npm
 endif
 
-npm: apt yum
+pacman:
+ifdef PACMAN
+	sudo pacman -S npm
+endif
+
+npm: apt yum pacman
 
 node_modules:
 # By defining this conditionally, rather than making a 'npm' a
