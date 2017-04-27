@@ -101,5 +101,12 @@ make docker-run
 
 .. this will trigger the building of a new docker image, and
 eventually start it, mapping the containers port 3000 to localhost's
-port 8080.  Therefore when it's done, you should be able to access the
-app at [[http://localhost:8080]].
+port 8080.  When it's ready und running you'll see a message that looks like this:
+
+#+BEGIN_SRC sh
+2017/04/27 13:15:15 Starting in development on 0.0.0.0:3000
+#+END_SRC
+
+Now you should be able to access the app at [[http://localhost:8080]].
+
+When you're done with the server you can kill it with =Ctrl-c=.
