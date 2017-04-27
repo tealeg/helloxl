@@ -1,0 +1,105 @@
+* HelloXL - a simple sample ReactJS project to learn from.
+
+** Overview.
+
+There's a wealth of introductory React material out there, much of it
+is wonderful.  There's even great tools, like [[https://github.com/facebookincubator/create-react-app][create-react-app]] that
+will set up a new React app for you.  The intent of this repository is
+not *that*.  It is rather intended to be used to give new comers a
+quick tour of what a React application looks like, from the code point
+of view.  It is inherently trivial. 
+
+** Prerequisites
+*** Setting up or Linux computer
+If you're on Arch linux, Ubuntu or Red Hat / Centos, this projects
+Makefile should be able to set up everything you need.  Be warned that
+this will result in Docker and Go being installed on your machine.
+
+*** Setting up on Mac
+
+**** 1. Install HomeBrew
+
+If you already have HomeBrew, you can skip this.  The following should
+all be carried out in a terminal/console.
+
+First install homebrew
+#+BEGIN_SRC sh
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+#+END_SRC
+
+Then update HomeBrew's repository
+#+BEGIN_SRC sh
+brew update
+#+END_SRC
+
+Then use a text editor to add the following to your =~/.bash_profile= file:
+
+#+BEGIN_SRC sh
+export PATH="/usr/local/bin:$PATH"
+#+END_SRC
+
+Finally you'll need to source your bash profile:
+
+#+BEGIN_SRC sh
+. ~/.bash_profile
+#+END_SRC
+
+**** 2. Install NodeJS
+Using HomeBrew you can now install NodeJS.
+#+BEGIN_SRC sh
+brew install node
+
+**** TODO 
+#+END_SRC
+
+**** 3. Install Go
+#+BEGIN_SRC sh
+brew install go
+#+END_SRC
+
+**** 4. Optionally install Docker for Mac
+If you want to install docker on your mac, and run this in a linux container, then [[https://www.docker.com/docker-mac][follow these instructions.]]
+
+*** Setting up on Windows
+
+Follow the instructions [[http://dilbert.com/strip/1995-06-24][here]].  Seriously though, the secret is to bang the rocks together guys.
+
+** Running helloxl.
+
+If all the above works out correclty, you should be able to just run:
+
+#+BEGIN_SRC sh
+make
+#+END_SRC
+
+.. and wait for that to finish.  You should then run the tests to see
+that everything is working as expected:
+
+#+BEGIN_SRC sh
+make test
+#+END_SRC
+
+Finally you have a choice - either run the app locally, or run it from
+a docker container.
+
+*** Running locally
+If all the above steps worked you simply need to run:
+
+#+BEGIN_SRC sh
+./helloxl
+#+END_SRC
+
+.. and point your browser to http://localhost:3000 to see the
+application running.
+
+*** Running in a docker container
+
+If you installed docker, then you can also:
+#+BEGIN_SRC sh
+make docker-run
+#+END_SRC
+
+.. this will trigger the building of a new docker image, and
+eventually start it, mapping the containers port 3000 to localhost's
+port 8080.  Therefore when it's done, you should be able to access the
+app at [[http://localhost:8080]].
