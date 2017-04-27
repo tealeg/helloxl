@@ -7,6 +7,8 @@ var APP_DIR = path.resolve(__dirname, 'jsx');
 var config = {
     entry: {
         app: APP_DIR + '/app.jsx',
+        xl: APP_DIR + '/xl.jsx',
+        upload: APP_DIR + '/upload.jsx'
     },
     output: {
         path: BUILD_DIR,
