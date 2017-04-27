@@ -23,7 +23,7 @@ export class XLApp extends React.Component {
 		<UploadFile onLoadFile={this.handleLoadFile}/>
 		{ this.state.spreadsheet &&
 		  this.state.spreadsheet.Sheets.map(
-		      (sheet) => <Sheet sheet={sheet} key={sheet}></Sheet>)
+		      (sheet) => <Sheet sheet={sheet} key={sheet.SheetID}></Sheet>)
 		}
 	    </div>
 	);
@@ -32,18 +32,18 @@ export class XLApp extends React.Component {
 
 
 
-function Sheet(props) {
-    const rows = props.sheet.map((row) => <Row row={row} key={row}></Row>);
+export function Sheet(props) {
+    const rows = props.sheet.Rows.map((row) => <Row row={row} key={row.RowID}></Row>);
     return <div className="sheet">{ rows }</div>;
 }
 
-function Row(props) {
-    const cols = props.row.map((col) => <Column col={col} key={col}></Column>);
+export function Row(props) {
+    const cols = props.row.Cols.map((col) => <Column col={col} key={col.ColID}></Column>);
     return <div className="row">{ cols }</div>;
 }
 
-function Column(props) {
-    return <span className="col">{props.col}</span>;
+export function Column(props) {
+    return <span className="col">{props.col.Value}</span>;
 }
 
 
