@@ -26,17 +26,16 @@ describe('<XLApp />', () => {
 
     it('stores the JSON result passed by onLoadFile', () => {
 	const wrapper = shallow(<XLApp />);
-	wrapper.instance().handleLoadFile({'Sheets': [[[1]]]});
+	const sheet = {SheetID: 0, MaxCols: 0, MaxRows: 0, Rows: []};
+	wrapper.instance().handleLoadFile({'Sheets': [sheet]});
 	expect(wrapper).to.have.state('spreadsheet');
 	const spreadsheet = wrapper.state()['spreadsheet'];
 	expect(spreadsheet['Sheets']).to.have.length(1);
-	const sheets = spreadsheet['Sheets'];
-	expect(sheets[0]).to.have.length(1);
-	const rows = sheets[0];
-	expect(rows[0]).to.have.length(1);
-	const cols = rows[0];
-	expect(cols[0]).to.equal(1);
-
+	const sheetObj = spreadsheet['Sheets'][0];
+	expect(sheetObj.SheetID).to.equal(0);
+	expect(sheetObj.MaxCols).to.equal(0);
+	expect(sheetObj.MaxRows).to.equal(0);
+	expect(sheetObj.Rows).to.have.length(0);
     });
 
 });
