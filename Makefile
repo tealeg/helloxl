@@ -3,6 +3,12 @@ YUM := $(shell command -v yum 2> /dev/null)
 PACMAN := $(shell command -v pacman 2> /dev/null)
 NPM += $(shell command -v npm 2> /dev/null)
 
+NODE_PACKAGES = react react-dom react-addons-test-utils react-test-renderer babel-loader babel-preset-es2015 babel-preset-react babel-register chai enzyme chai-enzyme mocha webpack jsdom jsdom-global uglify clean-css-cli eslint eslint-plugin-react eslint-plugin-mocha
+
+
+JSX_PATH ?= ./jsx
+
+
 all: webpack golang
 
 setup_7.x:
@@ -26,16 +32,25 @@ endif
 
 npm: apt yum pacman
 
-node_modules:
+check_npm:
 # By defining this conditionally, rather than making a 'npm' a
 # precondition we can stop node_modules and npm running for every make.
 ifndef NPM
 	make npm
 endif
-	npm i webpack babel-core babel-loader babel-preset-es2015 babel-preset-react react react-dom -S
 
-webpack: node_modules
+node_modules/%:
+	npm install --save $(@F)
+
+.PHONY: node_modules
+node_modules:
+	$(foreach m,$(NODE_PACKAGES),make node_modules/$(m);)
+
+webpack: check_npm node_modules
 	./node_modules/.bin/webpack -d
+
+jsx-test: check_npm node_modules
+	 BABEL_CACHE_PATH='.babel-cache.json' ./node_modules/mocha/bin/mocha --compilers jsx:babel-core/register ./jsx/test/*.jsx
 
 golang:
 	go build .
@@ -48,3 +63,7 @@ docker-build:
 
 docker-run:
 	sudo docker run --publish 8080:3000 --name helloxl --rm helloxl
+
+
+clean:
+	rm -rf node_modules helloxl .babel-cache.json
