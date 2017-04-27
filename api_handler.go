@@ -9,7 +9,6 @@ import (
 	"github.com/tealeg/xlsx"
 )
 
-
 type Col struct {
 	ColID string
 	Value string
@@ -17,31 +16,30 @@ type Col struct {
 
 type Row struct {
 	RowID string
-	Cols []Col
+	Cols  []Col
 }
 
 type Sheet struct {
 	SheetID string
 	MaxCols int
 	MaxRows int
-	Rows []Row
+	Rows    []Row
 }
 
 type ExcelData struct {
 	DocumentName string
-	Sheets []Sheet
+	Sheets       []Sheet
 }
 
-
 func excelResponse(w traffic.ResponseWriter, r *traffic.Request) {
-	file, handler, err := r.FormFile("file") 
-        if err != nil { 
-                fmt.Println(err) 
-        } 
-        data, err := ioutil.ReadAll(file) 
-        if err != nil { 
-                fmt.Println(err) 
-        }
+	file, handler, err := r.FormFile("file")
+	if err != nil {
+		fmt.Println(err)
+	}
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+	}
 	fmt.Print("Filename: ")
 	fmt.Println(handler.Filename)
 
@@ -84,6 +82,6 @@ func APIHandler(w traffic.ResponseWriter, r *traffic.Request) {
 	params := r.URL.Query()
 	call := params.Get("call")
 	if call == "conversion" {
-		excelResponse(w, r);
+		excelResponse(w, r)
 	}
 }
