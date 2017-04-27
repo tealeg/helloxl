@@ -1,89 +1,80 @@
-* Baseline:
+* HelloXL an introduction to ReactJS:
 
-** Go project
+** Why react?
+*** Facebook needed it for scaling
+*** No, not the number of concurrent users kind
+** A detour - where we are today
+*** First computers 40s/50s
+**** Rare, Slow and clunky, genius programmers
+*** Dumb Terminals in businesses and Universities 60s/70s/80s
+**** More common, capable, ok programmers
+*** Home Computers late 70s/80s
+**** Common, (realtively) capable, idiot programmers
+**** DOS, Windows OMFG
+**** Rich applications / Thick client
 
-*** I won't explain this.
+*** First Internet Nodes 1969 (.. also, man lands on the Moon)
+**** Only 2, programmers wrote all the protocol software before the hardware existed - it worked!
+*** First Web Server + Browser 1991 (Now we're at CERN)
+**** One programmer at CERN, pretty smart.
+*** Simple, dumb web pages go mass market 1993 - 2000 (Now we're like Dumb Terminals)
+**** Simple tech, simple uses. Bad tech decisions based on 90s programming fashions.
+*** Web 2.0 2004 onwards (Now we're like DOS)
+**** AJAX!
+**** Rich client apps
+**** Idiot programmers join in!
+*** Rich, single page web applications (Now we're like Windows 95).
+**** Ubiquitous
+**** More idiot programmers with more idiocy than ever. (Doubles every 5 years).
+**** A million different ways to do things.
 
-*** Surfice to say, it exists, it does stuff, and it has a directory.
+** Imagine you're facebook
+*** A single page
+*** So much crap going on in that one page
+*** Different teams develop different parts of the same page
+*** Everyone does it differently
+*** Dealing with pseudo-concurrent events
+*** Event chaining
+*** OMG this sucks
+*** Performance is a huge issue
+*** UX suffers
 
-*** Change into the directory:
+** The answer:
+*** Get the smartest guys you can find to define the one true way
+*** Take the hard stuff away from the idiots
+*** Force them towards good practise
+*** *WARNING* IDIOTS HATE THIS
 
-#+BEGIN_SRC shell
-cd ~/go/src/github.com/tealeg/helloxl
-#+END_SRC
+** So what does this look like ?
 
-** Setup React in a project
+*** 1. Don't let the idiots play with the dom
+**** It's not MVC!
+***** You could say it's the "V" part.
+***** Doesn't try to define the whole world, just the bit that's hard.
+**** Virtual DOM
+***** React diffs the virtual dom to the real DOM and updates the real DOM in an efficient manner
+**** JSX
+***** No templating, instead we have the ability to embed HTML in our JS via JSX.
+**** Essentially "functional" in style
+**** Component based
+***** Sort of like WebComponents really.
+***** Either a function that returns HTML, or a class with a render function that does this.
+***** Semantically meaningfull HTML
+***** Self contained scope (this is really useful)
+***** Information is passed down via properties, as per native HTML.
+**** Properties
+***** You can set them on components
+***** Read-only within the components
+***** Changing a property causes a component to be re-rendered
+**** Events
+***** Changes in a component are propogated outwards via events
+***** Event handlers are provided to a component as properties (just like normal HTML)
+**** State
+***** Mutable state is stored at the highest common level of usage.
+***** State that is used to populate properties of child components causes re-rendering when it changes.
 
-*** Install npm
+** OK, let's show you some code!
 
-**** Linux
-***** Ubuntu
-#+BEGIN_SRC shell
-sudo apt install npm
-#+END_SRC
-***** Fedora
-#+BEGIN_SRC shell
-sudo dnf install npm
-#+END_SRC
-***** RedHat / CentOS
-#+BEGIN_SRC shell
-sudo yum install npm
-#+END_SRC
-***** Arch 
-#+BEGIN_SRC shell
-sudo pacman -S npm
-#+END_SRC
-**** Mac OS X
-***** First install homebrew
-#+BEGIN_SRC shell
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew update
-brew doctor # just to check
-#+END_SRC
-
-Add this to your =~/.bash_profile= file
-#+BEGIN_SRC shell
-export PATH="/usr/local/bin:$PATH"
-#+END_SRC
-
-***** Now you can install Node (and npm along with it)
-#+BEGIN_SRC shell
-brew install node
-#+END_SRC
-
-**** Windows
-Follow the instructions [[http://dilbert.com/strip/1995-06-24][here]].  
-
-*** Install webpack (project local)
-In the root directory of your project:
-#+BEGIN_SRC shell
-npm i webpack -S
-#+END_SRC
-
-*** Setup webpack.config.js
-In the root directory of your project, create a file called =webpack.config.js=:
-#+INCLUDE: "./webpack.config.js" src js
-
-*** Create the directory structures for our JSX
-#+BEGIN_SRC shell
-    mkdir ./jsx
-    mkdir ./views/js
-#+END_SRC
-
-
-*** Install babel
-
-#+BEGIN_SRC shell
-npm i babel-core babel-loader babel-preset-es2015 babel-preset-react -S
-#+END_SRC
-
-*** Setup .babelrc
-In the root directory of your project, create a file called =.babelrc=:
-#+INCLUDE "./.babelrc" src js
-
-*** Install React *finally*
-#+BEGIN_SRC shell
-npm i react react-dom -S
-#+END_SRC
+** Demo
 
 
