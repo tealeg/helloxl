@@ -4,9 +4,9 @@ import React from 'react';
 import chai from 'chai'
 import { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import { shallow } from 'enzyme';
+import { shallow, render } from 'enzyme';
 
-import { XLApp } from '../xl';
+import { XLApp, Sheet, Row, Column } from '../xl';
 import { UploadFile } from '../upload';
 
 chai.use(chaiEnzyme())
@@ -40,4 +40,50 @@ describe('<XLApp />', () => {
     });
 
 });
+
+
+describe('<Sheet />', () => {
+
+    it('Renders a div', ()=> {
+        const sheet = {SheetID: 0, MaxCols: 0, MaxRows: 0, Rows: []};
+        const wrapper = shallow(<Sheet sheet={sheet} key={sheet.SheetID} />);
+        expect(wrapper).to.contain(<div className="sheet" />);
+    });
+
+    it('Renders a row, per Row', () => {
+        const row = {RowID: 0, Cols: []};
+        const sheet = {SheetID: 0, MaxCols: 0, MaxRows: 1, Rows: [row]};
+        const wrapper = shallow(<Sheet sheet={sheet} key={sheet.SheetID} />);
+        expect(wrapper).to.contain(<Row row={row} key={row.RowID} />);
+    });
+    
+});
+
+describe('<Row />', () => {
+
+    it('Renders a div', ()=> {
+        const row = {RowID: 0, Cols: []};
+        const wrapper = shallow(<Row row={row} key={row.RowID} />);
+        expect(wrapper).to.contain(<div className="row" />);
+    });
+
+    it('Renders a Column, per Col', () => {
+        const col = {ColID: 0, Value: "foo"};
+        const row = {RowID: 0, Cols: [col]};
+        const wrapper = shallow(<Row row={row} key={row.RowID} />);
+        expect(wrapper).to.contain(<Column col={col} key={col.ColID} />);
+    });
+    
+});
+
+
+describe('<Column />', () => {
+
+    it('Renders a span with a value', ()=> {
+        const col = {ColID: 0, Value: "foo"};
+        const wrapper = shallow(<Column col={col} key={col.ColID} />);
+        expect(wrapper).to.contain(<span className="col">foo</span>);
+    });
+});
+
 
