@@ -1,10 +1,10 @@
 import React from 'react';
-import { ReactDOM, render } from 'react-dom';
+import { render } from 'react-dom';
 import { XLApp } from './xl';
 
 
 function run() {
-    ReactDOM.render(<XLApp />, document.getElementById('app'));
+    render(<XLApp />, document.getElementById('app'));
 }
 
 const loadedStates = ['complete', 'loaded', 'interactive'];
