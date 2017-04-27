@@ -11,17 +11,17 @@ import (
 
 
 type Col struct {
-	ColID int
+	ColID string
 	Value string
 }
 
 type Row struct {
-	RowID int
+	RowID string
 	Cols []Col
 }
 
 type Sheet struct {
-	SheetID int
+	SheetID string
 	MaxCols int
 	MaxRows int
 	Rows []Row
@@ -54,13 +54,16 @@ func excelResponse(w traffic.ResponseWriter, r *traffic.Request) {
 
 	excelData.Sheets = []Sheet{}
 	for sheetIndex, sheet := range xlFile.Sheets {
-		jSheet := Sheet{MaxCols: sheet.MaxCol, MaxRows: sheet.MaxRow, SheetID: sheetIndex}
+		sheetID := fmt.Sprintf("%d", sheetIndex)
+		jSheet := Sheet{MaxCols: sheet.MaxCol, MaxRows: sheet.MaxRow, SheetID: sheetID}
 		jSheet.Rows = []Row{}
 		for rowIndex, row := range sheet.Rows {
-			jRow := Row{RowID: rowIndex}
+			rowID := fmt.Sprintf("%d-%d", sheetIndex, rowIndex)
+			jRow := Row{RowID: rowID}
 			jRow.Cols = []Col{}
 			for cellIndex, cell := range row.Cells {
-				jCol := Col{ColID: cellIndex}
+				colID := fmt.Sprintf("%d-%d-%d", sheetIndex, rowIndex, cellIndex)
+				jCol := Col{ColID: colID}
 				value, err := cell.FormattedValue()
 				if err != nil {
 					value = err.Error()
