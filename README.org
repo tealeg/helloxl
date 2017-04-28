@@ -108,3 +108,32 @@ port 8080.  When it's ready und running you'll see a message that looks like thi
 Now you should be able to access the app at [[http://localhost:8080]].
 
 When you're done with the server you can kill it with =Ctrl-c=.
+
+** A breif introduction to the code.
+*** Go files
+
+Go (often referred to as "Golang" to ease googling) is a compiled,
+statically typed programmnig language that can be seen as a sort of
+"easier C".  It's the fasting growing programming language in the
+world right now (both in commercial and hobbiest use).
+
+The topic here is not Go, so I won't go into detail, but essentially
+the files that end in the =.go= extension are source code (and unit
+tests) for a small server program that, when compiled, creates an
+executable called "helloxl" in the projects root directory.
+
+If you invoke =helloxl= it will start listening on all interfaces of
+your machine on port 3000.  If you use the =make docker-run= approach
+to running the program, we'll bind the localport 8080 to the
+containers port 3000.
+
+*** =.babelrc=
+Babel is a general purpose compiler for javascript.  In the React
+world it's used to convert JSX into plain ol' JavaScript.  The
+=.babelrc= file contains the configuration of babel for the projcet.
+It's an extremely simply JSON file that just tells babel which plugins
+to use.  It looks like this:
+
+#+INCLUDE "./.babelrc" src json
+
+
