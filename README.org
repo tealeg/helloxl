@@ -110,6 +110,27 @@ Now you should be able to access the app at [[http://localhost:8080]].
 When you're done with the server you can kill it with =Ctrl-c=.
 
 ** A breif introduction to the code.
+*** =jsx= directory
+
+The =JSX= files are the ReactJS code.  =JSX= is a special extended
+version of JavaScript used by ReactJS to allow the embedding of HTML
+style tags in code.
+
+React is essentially a way of making new tags for an HTML page, and
+controlling the way state flows in and out of them.  To the consumer
+of these tags they appear exactly as native HTML tags - you can set
+properties on them, and respond to events from them.  These tags are
+called =Components= and they can either be implemented as a simple
+function that takes a =props= argument (See, for example =Sheet=,
+=Row=, and =Column= in =jsx/xl.jsx=), or as a class that inherets from
+=React.Component= and has (at least) a =render= function that returns
+tags (See =XLApp= in =jsx/xl.jsx=).
+
+The file =jsx/app.jsx= is the place where the React code get's bound
+to the page (See the =run= function).  Note that this happens in
+response to the event indicating that page is fully loaded - this is
+important.
+
 *** Go files
 
 Go (often referred to as "Golang" to ease googling) is a compiled,
@@ -132,8 +153,69 @@ Babel is a general purpose compiler for javascript.  In the React
 world it's used to convert JSX into plain ol' JavaScript.  The
 =.babelrc= file contains the configuration of babel for the projcet.
 It's an extremely simply JSON file that just tells babel which plugins
-to use.  It looks like this:
+to use. 
 
-#+INCLUDE: ".babelrc"
+*** =Dockerfile=
 
+Docker is a way of simplifying the constuction and use of containers.
+It's not relevant to this projcet, but I added it as I was deploying
+the code into a Kubernetes cluster for my own purposes.  The
+=Dockerfile= simply describes how to build a container for this
+appplication.  You can safely ignore it.
 
+*** =Makefile=
+
+GNU Make is a tool for automating build processes.  Here the
+=Makefile= takes care of all of the set up, compilation, testing and
+even running of the application inside Docker (if you so wish).  If
+you wish to know how to setup a React + Go project from scratch, you
+can read the =Makefile= and see what is done.  You're probably better
+off just using something like [[https://github.com/facebookincubator/create-react-app][create-react-app]] though.
+
+To make the =Makefile= do something you invoke it by running =make= at
+the command line.  You can restrict it to handling a single target
+(plus any dependencies) by added a target name to the command as per
+=make golang-test=.
+
+*** =node_modules= directory
+
+This is a directory maked by =npm= (The NodeJS package manager), here
+you'll find all the dependencies required to make React work.
+Normally speaking you'd never need to look in here, but you can learn
+a lot about JS coding by reading the contents.
+
+*** =public= directory
+
+Static content to be served for the web page lives here.  Included CSS
+files, but also the generated javascript that babel makes from the
+=jsx= files we write for the react app.  You don't need to look at
+this, just know that it exists, and it's where we load our javascript
+from.
+
+*** =README.org=
+
+This file!
+
+*** =views= directory
+
+The sever app has templates for HTML pages here.  
+
+In =./views/includes/header.tpl= you'll find the =<script />= tag that
+loads our generated =app-bundle.js= file, which contains the plain JS
+version of all of the =jsx= code in this project.
+
+In =./views/index.tpl= you see that we include the header, and we define a div to hold our application, it looks like this:
+
+#+BEGIN_SRC html
+<div id="app" />
+#+END_SRC
+
+*** =webpack.config.js=
+
+The =webpack= program is responsible for bundling up all our generated
+javascript into one bundle (when it's generated you'll find it in
+=./public/js/app-bundle.js=.  The configuration file is written in
+JavaScript and tells =webpack= where to find the =jsx= files, and
+where to put the output bundle.  The =source-map= is also configured
+here, which allows the browser dev tools to map errors in the
+generated JavaScript files back to the =JSX= code.
