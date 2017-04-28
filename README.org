@@ -134,6 +134,6 @@ world it's used to convert JSX into plain ol' JavaScript.  The
 It's an extremely simply JSON file that just tells babel which plugins
 to use.  It looks like this:
 
-#+INCLUDE: "./.babelrc" src json
+#+INCLUDE: ".babelrc" src json
 
 
